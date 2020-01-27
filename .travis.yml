@@ -1,0 +1,14 @@
+---
+language: python
+python: "2.7"
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install ansible linter.
+  - pip install ansible-lint
+
+script:
+  # Launch ansible linter on main playbook.
+  - ansible-lint provisioning/playbook.yml
