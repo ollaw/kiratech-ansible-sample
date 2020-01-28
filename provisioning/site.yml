@@ -1,6 +1,14 @@
 ---
-- hosts: all
+- name: "Ping all the machines"
+  hosts: all
 
   tasks:
-    - name: Ping the machine
-      ping:
+    - ping:
+
+- name : "Install docker"
+  hosts: all
+  become: true
+
+  roles:
+    - docker
+
