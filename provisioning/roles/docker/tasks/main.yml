@@ -2,12 +2,8 @@
 # tasks file for docker
 - name: Install docker required packages
   yum:
-    name: "{{ item }}"
+    name: ['yum-utils', 'device-mapper-persistent-data', 'lvm2']
     state: latest
-  with_items:
-    - yum-utils
-    - device-mapper-persistent-data
-    - lvm2
 
 
 # Download the repo file from the official site, and put it in the default 
