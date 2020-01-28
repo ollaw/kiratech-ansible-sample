@@ -1,0 +1,29 @@
+---
+# tasks file for docker
+- name: Install docker required packages
+  yum:
+    name: ['yum-utils', 'device-mapper-persistent-data', 'lvm2']
+    state: latest
+
+
+# Download the repo file from the official site, and put it in the default 
+# repo position, with the correct permissions.
+- name: Add docker repo
+  get_url:
+    url: "https://download.docker.com/linux/centos/docker-ce.repo"
+    dest: "/etc/yum.repos.d/docker-ce.repo"
+    mode: 0644
+
+# Install docker
+- name: "Installing Docker latest version"
+  yum:
+    name: "docker-ce"
+    state: present
+
+
+# Starts docker service
+- name: "Starting and Enabling Docker service"
+  service:
+    name: docker
+    state: started
+    enabled: yes
