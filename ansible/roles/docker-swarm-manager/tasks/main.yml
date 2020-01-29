@@ -1,0 +1,16 @@
+---
+# Exiting from previous swarm
+- name: Exiting previous swarm
+  become: yes
+  command: docker swarm leave -f
+  failed_when: not "'This node is already part of a swarm' in command_result.stderr"
+
+# Create swarm as manager and advertise it
+- name: Setup swarm manager node
+  become: yes
+  command: docker swarm init --advertise-addr {{ manager_ip }}:2375 --listen-addr 0.0.0.0:2375
+  register: swarm_token_output
+  ignore_errors: yes
+
+- debug:
+    msg: "{{swarm_token_output}}"

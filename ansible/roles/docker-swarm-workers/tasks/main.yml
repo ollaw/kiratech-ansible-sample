@@ -1,0 +1,13 @@
+---
+# Exiting from previous swarm
+- name: Exiting previous swarm
+  become: yes
+  command: docker swarm leave -f
+  failed_when: not "'This node is already part of a swarm' in command_result.stderr"
+
+# Join existisng swarm previously created by manager
+- name: Setup swarm worker node
+  command: "{{ hostvars['vm_master']['swarm_token_output'].stdout.split('\n')[4] }} {{ manager_ip }}"
+  become: yes
+  failed_when: not "'This node is already part of a swarm' in command_result.stderr"
+  when: "'swarm-workers' in group_names"
