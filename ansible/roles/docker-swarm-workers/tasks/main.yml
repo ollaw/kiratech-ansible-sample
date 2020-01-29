@@ -7,7 +7,9 @@
 
 # Join existisng swarm previously created by manager
 - name: Setup swarm worker node
-  command: "{{ hostvars['vm_master']['swarm_token_output'].stdout.split('\n')[4] }} {{ manager_ip }}"
+  command: "{{ hostvars['vmMaster']['swarm_token_output'].stdout.split('\n')[4] }}"
+  register: shell_result
   become: yes
-  failed_when: not "'This node is already part of a swarm' in command_result.stderr"
-  when: "'swarm-workers' in group_names"
+
+- debug:
+    var: shell_result

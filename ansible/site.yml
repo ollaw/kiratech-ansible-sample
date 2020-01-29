@@ -15,7 +15,7 @@
     - docker
 
 - name : "Setup swarm for manager"
-  hosts: vm_master
+  hosts: vmMaster
   vars:
       manager_ip: "192.168.2.10"
 
@@ -23,7 +23,7 @@
     - docker-swarm-manager
 
 - name : "Setup swarm for workers"
-  hosts: vm_worker
+  hosts: vmWorker
   vars:
       manager_ip: "192.168.2.10"
 

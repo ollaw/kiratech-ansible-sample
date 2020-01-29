@@ -11,6 +11,3 @@
   command: docker swarm init --advertise-addr {{ manager_ip }}:2375 --listen-addr 0.0.0.0:2375
   register: swarm_token_output
   ignore_errors: yes
-
-- debug:
-    msg: "{{swarm_token_output}}"
