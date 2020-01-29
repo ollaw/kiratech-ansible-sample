@@ -1,0 +1,32 @@
+---
+- name: "Ping all the machines"
+  hosts: all
+
+  tasks:
+    - ping:
+
+- name : "Install docker"
+  hosts: all
+  become: true
+  vars:
+      docker_api_port: "2375"
+
+  roles:
+    - docker
+
+- name : "Setup swarm for manager"
+  hosts: vm_master
+  vars:
+      manager_ip: "192.168.2.10"
+
+  roles:
+    - docker-swarm-manager
+
+- name : "Setup swarm for workers"
+  hosts: vm_worker
+  vars:
+      manager_ip: "192.168.2.10"
+
+  roles:
+    - docker-swarm-workers
+
