@@ -14,13 +14,13 @@ If instead the machine is already on, just type
 
 - ``` vagrant provision ```
 
-### What this Playbook do
+### What this Playbook does:
 
 1. Ping the machine (simple test);
 2. Install *docker*;
 3. Configure *docker* to expose (in insecure mode yet) REST API.
 
-### TODO List on Playbook
+### TODO List on Playbook:
 
 1. Resize partition used by docker if is smaller than 40GB;
 1. Expose REST API in a secure mode;
