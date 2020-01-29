@@ -8,6 +8,8 @@
 - name : "Install docker"
   hosts: all
   become: true
+  vars:
+       docker_api_port: "2375"
 
   roles:
     - docker
