@@ -13,17 +13,19 @@ and then start the provisioning moving into `\ansible` directory and typing
 
 - ``` ansible-playbook -i invetory.yml site.yml ```
 
-### What this Playbook do
+### What this Playbook does:
 
 1. Ping the machine (simple test);
 2. Install *docker*;
 3. Configure *docker* to expose (in insecure mode yet) REST API;
-4. Configure a *docker-swarm* on the two VMs created (not fully working yet).
+4. Configure a *docker-swarm* on the two VMs created.
 
-### TODO List on Playbook
+### TODO List on Playbook:
 
 1. Resize partition used by docker if is smaller than 40GB;
 2. Expose REST API in a secure mode;
+3. Test a service with `molecule`
 
 #### Additional notes
-Network address of the VM (to test REST API) is `192.168.2.10` (specified on `Vagrantfile`)
+- Network address of the VM (to test REST API) is `http:\\192.168.2.10:2375` 
+- Master of the `swarm` is `192.168.2.10`
