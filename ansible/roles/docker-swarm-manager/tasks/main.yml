@@ -5,25 +5,6 @@
   command: docker swarm leave -f
   failed_when: not "'This node is already part of a swarm' in command_result.stderr"
 
-- name: Start firewalld
-  become: yes
-  service:
-    name: firewalld
-    state: started
-
-- name: "Open port on firewall"
-  become: yes
-  firewalld:
-    port: "{{item}}"
-    permanent: yes
-    immediate: yes  
-    state: enabled
-  loop:
-    - "2376/tcp"
-    - "2377/tcp"
-    - "7946/tcp"
-    - "7946/udp"
-    - "4789/udp"
     
 # Create swarm as manager and advertise it
 - name: Setup swarm manager node

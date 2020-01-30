@@ -23,13 +23,13 @@
 
 
 # Copy configuration file to enable REST API via TCP
-#- name: Enable REST API
-#  template:
-#    src: docker.service.j2
-#    dest: /lib/systemd/system/docker.service
-#    mode: '0600'
-#    force: yes
-#  notify: restart-daemon
+- name: Enable REST API
+  template:
+    src: docker.service.j2
+    dest: /etc/systemd/system/docker.service
+    mode: '0600'
+    force: yes
+  notify: restart-daemon
 
 # Force to flush handlers, so it will restart daemon from the task above
 - meta: flush_handlers
