@@ -1,0 +1,3 @@
+---
+server_cert_name: "worker-cert.pem"
+server_key_name: "worker-key.pem"
