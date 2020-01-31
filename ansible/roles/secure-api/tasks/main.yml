@@ -2,7 +2,7 @@
 # Create a sample directory to contains keys and certificates
 - name: Creates directory for certificate and keys
   file:
-    path: ~/key_sample
+    path: /home/vagrant/key_sample
     state: directory
 
 # Copy CA cert
@@ -15,13 +15,13 @@
 # Copy Server cert
 - name: Copy CA cert
   copy:
-    src: "{{server_cert_name}}"
+    src: "{{ server_cert_name }}"
     dest: "/home/vagrant/key_sample/server-cert.pem"
     mode: '0644'
 
 # Copy Server cert
 - name: Copy Server key
   copy:
-    src: "{{server_key_name}}"
+    src: "{{ server_key_name }}"
     dest: "/home/vagrant/key_sample/server-key.pem"
     mode: '0644'

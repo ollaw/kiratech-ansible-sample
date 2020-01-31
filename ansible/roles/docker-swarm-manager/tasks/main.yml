@@ -5,7 +5,6 @@
   command: docker swarm leave -f
   failed_when: not "'This node is already part of a swarm' in command_result.stderr"
 
-    
 # Create swarm as manager and advertise it
 - name: Setup swarm manager node
   become: yes

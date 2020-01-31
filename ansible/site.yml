@@ -2,12 +2,11 @@
 - name: "Ping all the machines"
   hosts: all
 
-  tasks:
-    - ping:
+  ping:
 
 - name: Copy key and cert
   hosts: all
-  
+
   roles:
     - secure-api
 

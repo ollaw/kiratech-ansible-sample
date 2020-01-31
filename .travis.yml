@@ -11,4 +11,4 @@ install:
 
 script:
   # Launch ansible linter on main playbook.
-  - ansible-lint provisioning/playbook.yml
+  - ansible-lint ansible/site.yml
