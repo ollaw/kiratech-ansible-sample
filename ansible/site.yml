@@ -3,7 +3,8 @@
   hosts: all
 
   tasks:
-    - ping:
+    - name : Ping machines
+      ping:
 
 - name: Copy key and cert
   hosts: all
