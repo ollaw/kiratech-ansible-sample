@@ -4,6 +4,8 @@
   become: yes
   command: docker swarm leave -f
   failed_when: not "'This node is already part of a swarm' in command_result.stderr"
+  tags:
+    - skip_ansible_lint
 
 # Create swarm as manager and advertise it
 - name: Setup swarm manager node
@@ -11,6 +13,8 @@
   command: docker swarm init --advertise-addr {{ manager_ip }}
   register: swarm_token_output
   ignore_errors: yes
+  tags:
+    - skip_ansible_lint
 
 - name: debug
   debug:

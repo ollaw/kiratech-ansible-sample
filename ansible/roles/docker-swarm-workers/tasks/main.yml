@@ -4,12 +4,16 @@
   become: yes
   command: docker swarm leave -f
   failed_when: not "'This node is already part of a swarm' in command_result.stderr"
+  tags:
+    - skip_ansible_lint
 
 # Join existisng swarm previously created by manager
 - name: Setup swarm worker node
   command: "{{ hostvars['vmMaster']['swarm_token_output'].stdout.split('\n')[4] }}"
   register: shell_result
   become: yes
+  tags:
+    - skip_ansible_lint
 
 - debug:
     var: shell_result
