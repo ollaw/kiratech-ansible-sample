@@ -2,37 +2,48 @@
 
 # kiratech-ansible-sample
 
-### Run the playbook 
+# Overview
 
-This project uses *vagrant* to create VM(s). <br>
-To run the playbook, creates the VMs typing from the root of the project
+Purpose of this project is to test some of [ansible](https://www.ansible.com/) basic functionalities, writing a playbook with following requirements:
 
-- ``` vagrant up ```
+- Provision two CentOS VMs;
+- Partition used by `docker` must have at least 40 GB of available space;
+- Configure REST API of `docker` daemon in a secure way;
+- `docker` has to be a service that load on startup;
+- Configure a `docker-swarm` on the VMs, accessible in a secure way;
+- Be able to interact or deploy services on the swarm from the local machine.
 
-and then start the provisioning moving into `\ansible` directory and typing 
+---
 
-- ``` ansible-playbook -i invetory.yml site.yml ```
+# Run the project
 
-### What this Playbook does:
+To create the VMs is used [vagrant](https://www.vagrantup.com/), so from the root of the project typing `vagrant up` is enough to build both VMs.
 
-1. Ping the machine;
-2. Install *docker*;
-3. Configure *docker* to expose REST API;
-4. Secure REST API (following [this guide](https://docs.docker.com/engine/security/https/));
-4. Configure a *docker-swarm* on the two VMs created.
+To start the provisioning, move to `\ansible` and type `ansible-playbook -i invetory.yml site.yml`.
 
-### TODO List on Playbook:
+# Testing
 
-1. Resize partition used by docker if is smaller than 40GB;
-2. Test a service with `molecule`
+For the testing is used [molecule](https://molecule.readthedocs.io/en/stable/). To perform a test, is enough to move on the selected role directory (for example `\secure-api`) and then typing `molecule test`.
 
-#### Additional notes
+Following `roles` contains at least one test :
 
-- Network address of the VMs are
-	- `192.168.2.10` *(master in swarm)*
-	- `192.168.2.11` *(worker swarm)*
+- `secure-api`
 
-- To test a REST endpoint on one of the VMs (e.g. `192.168.2.10`), run 
+---
 
-	```curl https://192.168.2.10:2376/images/json --cert client_tls/client-cert.pem --key client_tls/client-key.pem --cacert client_tls/ca.pem ```
+## Not implemented yet
 
+- Resize partition used by docker if is smaller than 40GB;
+
+---
+
+## Additional notes
+
+Network address of the VMs are
+
+- `192.168.2.10` _(master in swarm)_
+- `192.168.2.11` _(worker swarm)_
+
+REST endpoint are available on both machines, typing `curl https://192.168.2.10:2376/images/json --cert client_tls/client-cert.pem --key client_tls/client-key.pem --cacert client_tls/ca.pem ` (on machine `192.168.2.10` in this example)
+
+Security part has been developed following [this tutorial](https://docs.docker.com/engine/security/https/).
