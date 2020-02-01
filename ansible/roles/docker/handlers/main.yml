@@ -5,12 +5,15 @@
     name: docker
     state: started
     enabled: yes
+  become: yes
 
 - name: restart-docker
   service:
     name: docker
     state: restarted
+  become: yes
 
 - name: restart-daemon
   systemd:
     daemon_reload: yes
+  become: yes
