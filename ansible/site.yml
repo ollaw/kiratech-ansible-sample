@@ -2,7 +2,8 @@
 - name: "Ping all the machines"
   hosts: all
 
-  ping:
+  tasks:
+    - ping:
 
 - name: Copy key and cert
   hosts: all

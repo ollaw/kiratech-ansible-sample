@@ -6,9 +6,11 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  # Install ansible linter.
   - pip install ansible-lint
+  - pip install molecule
+  - pip install molecule[docker]
 
 script:
-  # Launch ansible linter on main playbook.
   - ansible-lint ansible/site.yml
+  - cd $TRAVIS_BUILD_DIR/ansible/roles/secure-api/ && molecule test 
+   
