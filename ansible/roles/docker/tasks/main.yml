@@ -4,6 +4,7 @@
   yum:
     name: ['yum-utils', 'device-mapper-persistent-data', 'lvm2']
     state: present
+  become: yes
 
 
 # Download the repo file from the official site, and put it in the default 
@@ -13,29 +14,34 @@
     url: "https://download.docker.com/linux/centos/docker-ce.repo"
     dest: "/etc/yum.repos.d/docker-ce.repo"
     mode: 0644
+  become: yes
 
 # Install docker
 - name: "Installing Docker latest version"
+  become: yes
   yum:
     name: "docker-ce"
     state: present
   notify: start-docker
 
+# Check id configuration file has already been copied (idempotence)
+- name: Check if configuration file already exsists
+  stat:
+    path: /etc/systemd/system/docker.service
+  register: docker_config_file
 
 # Copy configuration file to enable REST API via TCP
 - name: Enable REST API
+  become: yes
   template:
     src: docker.service.j2
     dest: /etc/systemd/system/docker.service
     mode: '0600'
     force: yes
-  notify: restart-daemon
+  notify:
+    - restart-daemon
+    - restart-docker
+  when: not docker_config_file.stat.exists == 'True'
 
 # Force to flush handlers, so it will restart daemon from the task above
 - meta: flush_handlers
-
-  # Restart docker to load configuration 
-- name: Restart docker
-  service:
-    name: docker
-    state: restarted

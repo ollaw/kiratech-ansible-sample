@@ -22,3 +22,9 @@ def test_keys_file_exists(host):
         assert f.exists
         assert f.is_file
         assert f.size > 0
+
+
+def test_is_correct_CA(host):
+    ca = host.file("/home/vagrant/key_sample/ca.pem")
+    assert ca.sha256sum == ('30b1bf8c8d987706df8fb820300421566'
+                            + '4107c01d2da251b20c39f70b0f16edd')
